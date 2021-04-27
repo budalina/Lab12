@@ -1,0 +1,168 @@
+@startuml
+
+Stimulable <|-- Person
+Person <|-- Employee
+Person <|-- Contractor
+Person <|-- Client
+Employee <|-- Manager
+Employee <|-- Worker
+Worker <|-- SalesPerson
+Payable <|-- Employee
+Payable <|-- Contractor
+
+interface Stimulable{
+    + bonus() : double
+    + printBonus()
+}
+
+interface Payable{
+    - INCREASE_CAP : int=20
+    --
+    + getSalary() : double
+    + increasePay(double) : boolean
+    + printSalaryInfo()
+}
+interface Constants{
+    - DEFAULT_DEPT_NAME : String = "default"
+    - DEFAULT_EMP_NO : String  = "0000000"
+    - DEFAULT_TAXPAYER_ID : String  = "151-00-00-00-000"
+    - DEFAULT_SALARY : int = 40000
+    - DEFAULT_DEP_NAME : String  = "Sales"
+    - GENDER_MALE : String  = "MALE"
+    - GENDER_FEMALE : String  = "FEMALE"
+}
+
+class Person  {
+    - name: String;
+    - birthDay: LocalDate;
+    - gender : String;
+    --
+    + Person()
+    + Person(String, LocalDate, String)
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    + toShortString() : String
+    --
+    - printBonus()
+}
+
+class Employee  {
+    - dept : String
+    - empNo : String
+    - baseSalary : double
+    - empDate : LocalDate
+    --
+    + Employee(String, LocalDate, String, String , String, double, LocalDate, String)
+    + Employee(String, LocalDate, String)
+    + Employee(String, String , double, LocalDate, String)
+    + Employee()
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    --
+    - increasePay(double) : boolean
+    - printSalaryInfo()
+}
+
+class Contractor{
+    - hourCost : double
+    - hoursWorked : int
+    --
+    + Contractor(String, LocalDate, String, int, int)
+    + Contractor(int, int)
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    --
+    - getSalary() : double
+    - bonus() : double
+    - increasePay(double) : boolean
+    - printSalaryInfo()
+}
+
+class Client{
+    - projects[] : String
+    - purchaseCount : int
+    - discount : double
+    --
+    + Client(String, LocalDate, String, String[], int, double)
+    + Client(String[], int, double)
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    + toShortString() : String
+    --
+    - bonus() : double
+}
+
+class Manager{
+    - workers[] : Worker
+    --
+    + Manager(String, LocalDate, String, String, String, int, LocalDate, String, Worker[])
+    + Manager(String, LocalDate, String, Worker[])
+    + Manager(String, String, int, LocalDate, String, Worker[])
+    + Manager(Worker[])
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    + toShortString() : String
+    --
+    - bonus() : double
+    - getSalary() : double
+}
+
+class Worker{
+    - projects[] : String
+    --
+    + Worker(String, LocalDate, String, String, String, int, LocalDate, String, String[])
+    + Worker(String, LocalDate, String, String[])
+    + Worker(String, String, int, LocalDate, String, String[])
+    + Worker()
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    --
+    - bonus() : double
+    - getSalary() : double
+}
+
+class SalesPerson{
+    - quota : int
+    - salesCount : int
+    - discount : int
+    --
+    + SalesPerson(String, LocalDate, String, String, String, int, LocalDate, String, String[], int, int, int)
+    + SalesPerson(String, LocalDate, String, String[], int, int, int)
+    + SalesPerson(String, int, LocalDate, String, String[], int, int, int) {
+    + SalesPerson(String[], int, int, int)
+    + SalesPerson()
+    --
+    ...
+    геттеры и сеттеры для всех полей
+    ...
+    --
+    + toString() : String
+    --
+    - bonus() : double
+    - getSalary() : double
+}
+@enduml
